@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,7 +12,26 @@ import { GlobalStyles, Colors } from './styles/GlobalStyles';
 //opretter Tab Navigatoren, som er fanerne i bunden af appen
 const Tab = createBottomTabNavigator();
 
+//favoritterne ligger øverst i appen og sendes som props, så flere skærme kan bruge dem
 export default function App() {
+  const [favoritter, setFavoritter] = useState([]);
+
+  //lægger et produkt til favoritter, men kun hvis det ikke allerede er gemt
+  const addFavorite = (produkt) => {
+    const findes = favoritter.filter((f) => f.id === produkt.id).length > 0;
+    if (findes) {
+      Alert.alert('Allerede gemt', `${produkt.title} er allerede i dine favoritter.`);
+    } else {
+      setFavoritter([...favoritter, produkt]);
+      Alert.alert('Gemt', `${produkt.title} er gemt i dine favoritter.`);
+    }
+  };
+
+  //fjerner et produkt fra favoritter ud fra dets id
+  const removeFavorite = (id) => {
+    setFavoritter(favoritter.filter((f) => f.id !== id));
+  };
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -39,10 +59,18 @@ export default function App() {
           },
         })}
       >
-        {/* fanerne med en stack har deres egen header, så fanens header skjules */}
-        <Tab.Screen name="Hjem" component={HomeStack} options={{ headerShown: false }} />
+        {/* funktion så vi selv kan sende addFavorite med til HomeStack */}
+        <Tab.Screen name="Hjem" options={{ headerShown: false }}>
+          {(props) => <HomeStack {...props} addFavorite={addFavorite} />}
+        </Tab.Screen>
+
         <Tab.Screen name="Profil" component={ProfileStack} options={{ headerShown: false }} />
-        <Tab.Screen name="Favoritter" component={FavoritesScreen} />
+
+        {/* funktion så vi selv kan sende favoritter og removeFavorite med */}
+        <Tab.Screen name="Favoritter">
+          {(props) => <FavoritesScreen {...props} favoritter={favoritter} removeFavorite={removeFavorite} />}
+        </Tab.Screen>
+
         <Tab.Screen name="Chat" component={ChatStack} options={{ headerShown: false }} />
       </Tab.Navigator>
     </NavigationContainer>

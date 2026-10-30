@@ -6,7 +6,7 @@ import ButtonComponent from '../components/ButtonComponent';
 import { GlobalStyles } from '../styles/GlobalStyles';
 
 //skærm med anbefalinger og den nyeste kollektion, som hentes fra et online API
-export default function CollectionScreen() {
+export default function CollectionScreen({ addFavorite }) {
   const [anbefalinger, setAnbefalinger] = useState([]); //produkter fra kundens yndlingskategori
   const [produkter, setProdukter] = useState([]); //produkterne i den valgte kategori
   const [kategori, setKategori] = useState(KATEGORIER[0].slug); //valgt kategori, starter med tasker
@@ -55,7 +55,12 @@ export default function CollectionScreen() {
       {/* anbefalinger til kunden */}
       <Text style={GlobalStyles.sectionTitle}>Anbefalet til dig</Text>
       {anbefalinger.map((produkt) => (
-        <ProductCard key={produkt.id} produkt={produkt} />
+        <ProductCard
+          key={produkt.id}
+          produkt={produkt}
+          knapTekst="♡ Gem"
+          onPress={() => addFavorite(produkt)}
+        />
       ))}
 
       {/* den nyeste kollektion med søgefelt og kategorier */}
@@ -81,7 +86,12 @@ export default function CollectionScreen() {
 
       {/* produkterne der matcher søgningen */}
       {filtreredeProdukter.map((produkt) => (
-        <ProductCard key={produkt.id} produkt={produkt} />
+        <ProductCard
+          key={produkt.id}
+          produkt={produkt}
+          knapTekst="♡ Gem"
+          onPress={() => addFavorite(produkt)}
+        />
       ))}
 
       {/* vises kun hvis der er en fejlbesked */}

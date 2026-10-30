@@ -171,4 +171,18 @@ export const GlobalStyles = StyleSheet.create({
     color: Colors.primary,
     marginTop: 4,
   },
+
+    //lille knap til højre i et produktkort (Gem / Fjern)
+  smallBtn: {
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    borderRadius: 4,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+  },
+  smallBtnText: {
+    color: Colors.primary,
+    fontSize: 13,
+    fontWeight: '600',
+  },
 });
