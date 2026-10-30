@@ -172,7 +172,7 @@ export const GlobalStyles = StyleSheet.create({
     marginTop: 4,
   },
 
-    //lille knap til højre i et produktkort (Gem / Fjern)
+  //lille knap til højre i et produktkort (Gem / Fjern)
   smallBtn: {
     borderWidth: 1,
     borderColor: Colors.primary,
@@ -184,5 +184,113 @@ export const GlobalStyles = StyleSheet.create({
     color: Colors.primary,
     fontSize: 13,
     fontWeight: '600',
+  },
+
+    //ramme omkring booking formularen
+  formContainer: {
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    borderRadius: 4,
+    padding: 20,
+    marginBottom: 40,
+  },
+  inputLabel: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: Colors.primary,
+    marginTop: 16,
+    marginBottom: 6,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  textInput: {
+    height: 44,
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    borderRadius: 4,
+    paddingLeft: 12,
+    fontSize: 15,
+  },
+
+  //rækken med Fashion Advisor knapperne i formularen
+  faOptionsRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+
+  //hver FA knap fylder halvdelen af rækken, så navnene står på én linje (2 pr. række)
+  faOption: {
+    width: '48%',
+  },
+
+    //hvid række med sort kant til hver booking i listen
+  bookingItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    borderRadius: 4,
+    padding: 16,
+    marginBottom: 10,
+    gap: 12,
+  },
+  bookingItemText: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: Colors.primary,
+  },
+
+  //grå tekst til kommentar og favoritter under dato og FA
+  bookingItemComment: {
+    fontSize: 13,
+    color: Colors.textGrey,
+    marginTop: 4,
+  },
+
+  //lidt luft mellem afsnittene på profilen
+  sectionSpacing: {
+    marginBottom: 24,
+  },
+
+    //én chat i listen over samtaler
+  chatItem: {
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    borderRadius: 4,
+    padding: 16,
+    marginBottom: 10,
+  },
+
+  //hvid baggrund bag selve chatten
+  mainView: {
+    flex: 1,
+    backgroundColor: Colors.background,
+  },
+
+  //kundens egne bobler til højre er sorte med hvid tekst
+  bubbleRight: {
+    backgroundColor: Colors.primary,
+  },
+  bubbleRightText: {
+    color: Colors.textLight,
+  },
+
+  //Fashion Advisorens bobler til venstre har sort tekst
+  bubbleLeftText: {
+    color: Colors.primary,
+  },
+
+  //feltet nederst hvor kunden skriver
+  inputToolbarContainer: {
+    borderTopWidth: 1,
+    borderTopColor: Colors.primary,
+    padding: 3,
+    minHeight: 48,
+  },
+  sendButton: {
+    marginRight: 10,
+    marginBottom: 10,
   },
 });

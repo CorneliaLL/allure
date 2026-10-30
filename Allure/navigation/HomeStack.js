@@ -8,7 +8,7 @@ import { GlobalStyles, Colors } from '../styles/GlobalStyles';
 const Stack = createStackNavigator();
 
 //stack navigator til Hjem fanen: starter på forsiden og "pusher" til booking eller kollektion
-export default function HomeStack({ addFavorite }) {
+export default function HomeStack({ addFavorite, favoritter, addBooking }) {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -19,7 +19,10 @@ export default function HomeStack({ addFavorite }) {
     >
       {/* skærmen hedder "Forside", så den ikke har samme navn som fanen "Hjem" */}
       <Stack.Screen name="Forside" component={HomeScreen} options={{ title: 'Allure' }} />
-      <Stack.Screen name="Book tid" component={BookingScreen} />
+      {/* funktion så vi selv kan sende addBooking og favoritter med til BookingScreen */}
+      <Stack.Screen name="Book tid">
+        {(props) => <BookingScreen {...props} addBooking={addBooking} favoritter={favoritter} />}
+      </Stack.Screen>
 
       {/* funktion så vi selv kan sende addFavorite med til CollectionScreen */}
       <Stack.Screen name="Kollektion">

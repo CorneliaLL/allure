@@ -17,7 +17,8 @@ export default function ChatStack() {
       }}
     >
       <Stack.Screen name="Chats" component={ChatListScreen} />
-      <Stack.Screen name="Samtale" component={ConversationScreen} />
+      {/* titlen i headeren er navnet på den FA, der blev trykket på */}
+      <Stack.Screen name="Samtale" component={ConversationScreen} options={({ route }) => ({ title: route.params.fa })} />
     </Stack.Navigator>
   );
 }

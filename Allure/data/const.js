@@ -20,3 +20,18 @@ export const KATEGORIER = [
   { navn: 'Sko', slug: 'womens-shoes' },
   { navn: 'Smykker', slug: 'womens-jewellery' },
 ];
+
+//de Fashion Advisors kunden kan booke hos og skrive med
+export const FASHION_ADVISORS = ['Maria Jensen', 'Sofie Lund', 'Kent Lee', 'Camilla Pau'];
+
+//arrangementer og private sales, der vises på profilen
+export const ARRANGEMENTER = [
+  { id: '1', titel: 'Private sale', tekst: '12. november · Kun for inviterede kunder' },
+  { id: '2', titel: 'Forårskollektion preview', tekst: '20. november · Champagne og styling' },
+];
+
+//de Fashion Advisors kunden har skrevet med, og deres seneste besked (statisk eksempel)
+export const CHATS = [
+  { id: '1', fa: 'Maria Jensen', besked: 'Hej Sofie, den nye taske er kommet hjem i din farve.' },
+  { id: '2', fa: 'Anna Berg', besked: 'Tak for dit besøg i går, du er velkommen igen.' },
+];

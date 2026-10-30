@@ -16,9 +16,9 @@ export default function FavoritesScreen({ favoritter, removeFavorite }) {
         //flatList renderer et ProductCard pr. favorit, med en "Fjern" knap
         <FlatList
           data={favoritter}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.key}
           renderItem={({ item }) => (
-            <ProductCard produkt={item} knapTekst="Fjern" onPress={() => removeFavorite(item.id)} />
+            <ProductCard produkt={item} knapTekst="Fjern" onPress={() => removeFavorite(item.key)} />
           )}
         />
       )}

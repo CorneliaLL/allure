@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { ref, push, remove, onValue } from 'firebase/database';
+import { rtdb } from './database/firebase';
 import HomeStack from './navigation/HomeStack';
 import ProfileStack from './navigation/ProfileStack';
 import ChatStack from './navigation/ChatStack';
@@ -12,24 +14,67 @@ import { GlobalStyles, Colors } from './styles/GlobalStyles';
 //opretter Tab Navigatoren, som er fanerne i bunden af appen
 const Tab = createBottomTabNavigator();
 
-//favoritterne ligger øverst i appen og sendes som props, så flere skærme kan bruge dem
+//laver Firebase objektet { key: data } om til en liste, hvor hver del også har sin key
+//key bruges til at finde og slette den rigtige del i databasen
+const tilListe = (data) => Object.keys(data || {}).map((key) => ({ key, ...data[key] }));
+
+//favoritter og bookinger hentes fra Firebase og sendes som props, så flere skærme kan bruge dem
 export default function App() {
   const [favoritter, setFavoritter] = useState([]);
+  const [bookinger, setBookinger] = useState([]);
 
-  //lægger et produkt til favoritter, men kun hvis det ikke allerede er gemt
-  const addFavorite = (produkt) => {
+  //lytter på "Favorites" og "Bookings" i Firebase, så listerne opdateres med det samme (som CarList i øvelse 05)
+  useEffect(() => {
+    const unsubscribeFavorites = onValue(ref(rtdb, 'Favorites'), (snapshot) => {
+      setFavoritter(tilListe(snapshot.val()));
+    });
+    const unsubscribeBookings = onValue(ref(rtdb, 'Bookings'), (snapshot) => {
+      setBookinger(tilListe(snapshot.val()));
+    });
+
+    //stopper lytterne, når appen lukkes
+    return () => {
+      unsubscribeFavorites();
+      unsubscribeBookings();
+    };
+  }, []);
+
+  //gemmer et produkt i favoritter i Firebase, men kun hvis det ikke allerede er gemt
+  const addFavorite = async (produkt) => {
     const findes = favoritter.filter((f) => f.id === produkt.id).length > 0;
     if (findes) {
-      Alert.alert('Allerede gemt', `${produkt.title} er allerede i dine favoritter.`);
-    } else {
-      setFavoritter([...favoritter, produkt]);
+      return Alert.alert('Allerede gemt', `${produkt.title} er allerede i dine favoritter.`);
+    }
+    try {
+      await push(ref(rtdb, 'Favorites'), {
+        id: produkt.id,
+        title: produkt.title,
+        price: produkt.price,
+        thumbnail: produkt.thumbnail,
+      });
       Alert.alert('Gemt', `${produkt.title} er gemt i dine favoritter.`);
+    } catch (e) {
+      Alert.alert(e?.message || 'Noget gik galt.');
     }
   };
 
-  //fjerner et produkt fra favoritter ud fra dets id
-  const removeFavorite = (id) => {
-    setFavoritter(favoritter.filter((f) => f.id !== id));
+  //fjerner en favorit fra Firebase ud fra dens key
+  const removeFavorite = (key) => {
+    remove(ref(rtdb, `Favorites/${key}`));
+  };
+
+  //gemmer en ny booking i Firebase
+  const addBooking = async (booking) => {
+    try {
+      await push(ref(rtdb, 'Bookings'), booking);
+    } catch (e) {
+      Alert.alert(e?.message || 'Noget gik galt.');
+    }
+  };
+
+  //fjerner en booking fra Firebase ud fra dens key
+  const removeBooking = (key) => {
+    remove(ref(rtdb, `Bookings/${key}`));
   };
 
   return (
@@ -59,12 +104,25 @@ export default function App() {
           },
         })}
       >
-        {/* funktion så vi selv kan sende addFavorite med til HomeStack */}
+        {/* funktion så vi selv kan sende favoritter og bookinger med til HomeStack */}
         <Tab.Screen name="Hjem" options={{ headerShown: false }}>
-          {(props) => <HomeStack {...props} addFavorite={addFavorite} />}
+          {(props) => (
+            <HomeStack {...props} addFavorite={addFavorite} favoritter={favoritter} addBooking={addBooking} />
+          )}
         </Tab.Screen>
 
-        <Tab.Screen name="Profil" component={ProfileStack} options={{ headerShown: false }} />
+        {/* funktion så vi selv kan sende bookinger og favoritter med til ProfileStack */}
+        <Tab.Screen name="Profil" options={{ headerShown: false }}>
+          {(props) => (
+            <ProfileStack
+              {...props}
+              bookinger={bookinger}
+              removeBooking={removeBooking}
+              addBooking={addBooking}
+              favoritter={favoritter}
+            />
+          )}
+        </Tab.Screen>
 
         {/* funktion så vi selv kan sende favoritter og removeFavorite med */}
         <Tab.Screen name="Favoritter">
