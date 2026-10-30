@@ -30,8 +30,18 @@ export const ARRANGEMENTER = [
   { id: '2', titel: 'Forårskollektion preview', tekst: '20. november · Champagne og styling' },
 ];
 
-//de Fashion Advisors kunden har skrevet med, og deres seneste besked (statisk eksempel)
+//de Fashion Advisors kunden har skrevet med, deres billede og seneste besked (statisk eksempel)
 export const CHATS = [
-  { id: '1', fa: 'Maria Jensen', besked: 'Hej Sofie, den nye taske er kommet hjem i din farve.' },
-  { id: '2', fa: 'Anna Berg', besked: 'Tak for dit besøg i går, du er velkommen igen.' },
+  {
+    id: '1',
+    fa: 'Maria Jensen',
+    billede: require('../assets/logo.png'),
+    besked: 'Hej Sofie, den nye taske er kommet hjem i din farve.',
+  },
+  {
+    id: '2',
+    fa: 'Anna Berg',
+    billede: require('../assets/logo.png'),
+    besked: 'Tak for dit besøg i går, du er velkommen igen.',
+  },
 ];

@@ -10,7 +10,7 @@ import { GlobalStyles, Colors } from '../styles/GlobalStyles';
 //beskederne gemmes i Firebase, så chat historikken huskes
 //kunden kan skrive, men der kommer ikke svar, da der endnu ikke er et FA interface
 export default function ConversationScreen({ route }) {
-  const { id, fa, besked } = route.params; //chattens id, FA'ens navn og besked fra ChatListScreen
+  const { id, fa, besked, billede } = route.params; //chattens id, FA'ens navn, billede og besked fra ChatListScreen
   const [messages, setMessages] = useState([]);
 
   //FA'ens seneste besked fra const.js, vises altid som den første besked i samtalen
@@ -21,6 +21,7 @@ export default function ConversationScreen({ route }) {
     user: {
       _id: 2, //2 = Fashion Advisoren
       name: fa,
+      avatar: billede, //FA'ens billede fra assets, vises ved siden af boblen (som avatar i øvelse 10)
     },
   };
 

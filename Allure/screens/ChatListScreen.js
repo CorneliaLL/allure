@@ -14,8 +14,10 @@ export default function ChatListScreen({ navigation }) {
           //trykker man på en chat, sendes FA'ens navn og besked med til samtalen
           <Pressable
             style={GlobalStyles.chatItem}
-            onPress={() => navigation.navigate('Samtale', { id: item.id, fa: item.fa, besked: item.besked })}
-          >
+            onPress={() =>
+            navigation.navigate('Samtale', { id: item.id, fa: item.fa, besked: item.besked, billede: item.billede })
+            }
+            >
             <Text style={GlobalStyles.newsTitle}>{item.fa}</Text>
             <Text style={GlobalStyles.newsText}>{item.besked}</Text>
           </Pressable>
