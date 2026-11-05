@@ -293,4 +293,13 @@ export const GlobalStyles = StyleSheet.create({
     marginRight: 10,
     marginBottom: 10,
   },
+
+  //billede i en nyhed eller et arrangement, fx en invitation
+  newsImage: {
+    width: '100%',
+    height: 320,
+    borderRadius: 4,
+    marginTop: 12,
+    resizeMode: 'contain',
+  },
 });

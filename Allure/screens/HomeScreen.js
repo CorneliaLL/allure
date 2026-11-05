@@ -11,7 +11,7 @@ export default function HomeScreen({ navigation }) {
     <ScrollView style={GlobalStyles.screenContainer}>
       {/* billede fra seneste fashion show, ligger i assets mappen */}
       <Image source={require('../assets/fashionshow.png')} style={GlobalStyles.heroImage} />
-      <Text style={GlobalStyles.heroText}>Seneste fashion show</Text>
+      <Text style={GlobalStyles.heroText}>Se seneste fashion show</Text>
 
       {/* knapper der navigerer til skærmene i HomeStack */}
       <View style={GlobalStyles.buttonRow}>

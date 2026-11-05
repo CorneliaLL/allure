@@ -1,8 +1,12 @@
 //nyheder der vises på opslagstavlen på forsiden
 export const NYHEDER = [
-  { id: '1', titel: 'Ny kollektion', tekst: 'Forårskollektionen er ankommet i butikken.' },
-  { id: '2', titel: 'Private sale', tekst: 'Eksklusivt udsalg for faste kunder i næste uge.' },
-  { id: '3', titel: 'Styling event', tekst: 'Book en personlig styling med din Fashion Advisor.' },
+  { id: '1', titel: 'Ny kollektion', tekst: 'CHANEL Efterår-Vinter 2026 Ready-to-Wear Kollektionen fås nu i butikker.' },
+  { id: '2', titel: 'Styling event', tekst: 'Book en personlig styling med din Fashion Advisor.' },
+  {
+    id: '3',
+    titel: 'N°5, 100 års berømmelse',
+    tekst: 'Oplev historien om N°5, et symbol på modernitet og elegance.',
+  },
 ];
 
 //den kunde der er "logget ind" i prototypen, yndlingskategorien bruges til anbefalinger
@@ -25,9 +29,16 @@ export const KATEGORIER = [
 export const FASHION_ADVISORS = ['Maria Jensen', 'Sofie Lund', 'Kent Lee', 'Camilla Pau'];
 
 //arrangementer og private sales, der vises på profilen
+//arrangementer og private sales, der vises på profilen
 export const ARRANGEMENTER = [
-  { id: '1', titel: 'Private sale', tekst: '12. november · Kun for inviterede kunder' },
-  { id: '2', titel: 'Forårskollektion preview', tekst: '20. november · Champagne og styling' },
+  {
+    id: '3',
+    titel: 'Year-End Dinner',
+    tekst: 'Torsdag 3. december 2026 · København · Eksklusiv middag for at fejre højtiden',
+    billede: require('../assets/juleevent.png'),
+  },
+  { id: '1', titel: 'Private sale', tekst: '12. december · Kun for inviterede VIC kunder' },
+  { id: '2', titel: 'Forårskollektion preview', tekst: '10. januar · Champagne og styling' },
 ];
 
 //de Fashion Advisors kunden har skrevet med, deres billede og seneste besked (statisk eksempel)
@@ -42,6 +53,6 @@ export const CHATS = [
     id: '2',
     fa: 'Anna Berg',
     billede: require('../assets/logo.png'),
-    besked: 'Tak for dit besøg i går, du er velkommen igen.',
+    besked: 'Tak for dit besøg i går, jeg håber du bliver glad for dine flotte nye sko!',
   },
 ];
