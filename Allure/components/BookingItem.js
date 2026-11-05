@@ -16,8 +16,8 @@ export default function BookingItem({ booking, onCancel }) {
           <Text style={GlobalStyles.bookingItemComment}>{booking.kommentar}</Text>
         ) : null}
 
-        {/* favoritterne vises kun, hvis kunden har vedhæftet dem */}
-        {booking.favoritter.length > 0 ? (
+        {/* Firebase gemmer ikke tomme lister, så vi tjekker først, om der overhovedet er favoritter */}
+        {booking.favoritter && booking.favoritter.length > 0 ? (
           <Text style={GlobalStyles.bookingItemComment}>Favoritter: {booking.favoritter.join(', ')}</Text>
         ) : null}
       </View>
